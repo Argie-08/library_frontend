@@ -1,0 +1,16 @@
+.dataItem:hover p {
+  color: #2596be;
+}
+.homeSearch {
+  height: 2rem;
+  width: 100%;
+  padding-left: 1rem;
+}
+.anticon-search {
+  position: absolute;
+  top: 50%;
+  right: 0%;
+  transform: translateX(-50%) translateY(-50%);
+  color: #2596be;
+  font-size: 25px;
+}

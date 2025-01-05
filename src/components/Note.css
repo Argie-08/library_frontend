@@ -1,0 +1,10 @@
+.ant-spin-dot-holder {
+  color: #ffffff !important;
+}
+.p-toast-message-content {
+  gap: 1rem;
+  align-items: center;
+}
+.p-toast-message-icon {
+  margin-left: 0.5rem;
+}
