@@ -14,3 +14,7 @@
   color: #2596be;
   font-size: 25px;
 }
+.p-dialog-title,
+.p-dialog-content {
+  padding: 1rem;
+}

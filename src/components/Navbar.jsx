@@ -17,6 +17,9 @@ const Navbar = () => {
   const navigate = useNavigate();
   const { fetchData } = useContext(AppContext);
   const { fetchReact } = useContext(AppContext);
+  const { fetchCodeigniter } = useContext(AppContext);
+  const { fetchLaravel } = useContext(AppContext);
+  const { fetchOther } = useContext(AppContext);
 
   const handleNote = () => {
     navigate("/note");
@@ -28,9 +31,11 @@ const Navbar = () => {
     } else if (e.key === "react") {
       fetchReact();
     } else if (e.key === "laravel") {
-      console.log("Laravel");
+      fetchLaravel();
     } else if (e.key === "codeigniter") {
-      console.log("Codeigniter");
+      fetchCodeigniter();
+    } else if (e.key === "other") {
+      fetchOther();
     }
     navigate(`/${e.key}`);
   };

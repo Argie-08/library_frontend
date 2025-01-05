@@ -1,27 +1,23 @@
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import { useContext } from "react";
-import { AppContext } from "../AppContext";
 import {
   FolderOutlined,
   FileTextOutlined,
   SearchOutlined,
 } from "@ant-design/icons";
-import { InputText } from "primereact/inputtext";
+import { useContext } from "react";
+import { AppContext } from "../AppContext";
 import Dialoged from "./Dialoged";
-import "./Home.css";
 
-const Home = () => {
+const Laravel = () => {
   const {
-    results,
-    setQuery,
-    query,
-    loading,
+    laravelFiles,
     setVisible,
     setTitle,
     setContent,
     setSubject,
+    loading,
   } = useContext(AppContext);
 
   const handleContent = (file) => {
@@ -38,32 +34,18 @@ const Home = () => {
         style={{ height: "100%", borderRadius: "10px" }}
       >
         <Row className="">
-          <Col sm={12} md={6} className="d-flex justify-content-start">
+          <Col sm={12} className="d-flex justify-content-start">
             <h2 className="">
-              Documents
+              Laravel Documents
               <span className="ps-2">
                 <FolderOutlined />
               </span>
             </h2>
           </Col>
-          <Col sm={12} md={6} className="d-flex align-items-center">
-            <div
-              className="position-relative w-100"
-              style={{ display: "inline-block" }}
-            >
-              <InputText
-                className="homeSearch"
-                placeholder="Search here . . ."
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-              />
-              <SearchOutlined />
-            </div>
-          </Col>
         </Row>
         <div className="ps-5 mt-4" style={{ height: "95%" }}>
           {loading && <p>Loading...</p>}
-          {results.map((file, i) => (
+          {laravelFiles.map((file, i) => (
             <div
               style={{ cursor: "pointer" }}
               className="dataItem"
@@ -85,4 +67,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Laravel;

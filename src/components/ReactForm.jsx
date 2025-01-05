@@ -8,10 +8,18 @@ import {
 } from "@ant-design/icons";
 import { useContext } from "react";
 import { AppContext } from "../AppContext";
+import Dialoged from "./Dialoged";
 
 const ReactForm = () => {
-  const { loading } = useContext(AppContext);
-  const { reactFiles } = useContext(AppContext);
+  const { reactFiles, setVisible, setTitle, setContent, setSubject, loading } =
+    useContext(AppContext);
+
+  const handleContent = (file) => {
+    setVisible(true);
+    setTitle(file.title);
+    setContent(file.content);
+    setSubject(file.subject);
+  };
 
   return (
     <div className="w-100 p-5">
@@ -32,7 +40,12 @@ const ReactForm = () => {
         <div className="ps-5 mt-4" style={{ height: "95%" }}>
           {loading && <p>Loading...</p>}
           {reactFiles.map((file, i) => (
-            <div style={{ cursor: "pointer" }} className="dataItem" key={i}>
+            <div
+              style={{ cursor: "pointer" }}
+              className="dataItem"
+              key={i}
+              onClick={() => handleContent(file)}
+            >
               <p>
                 <span className="pe-2">
                   <FileTextOutlined style={{ fontSize: "20px" }} />
@@ -43,6 +56,7 @@ const ReactForm = () => {
           ))}
         </div>
       </Form>
+      <Dialoged />
     </div>
   );
 };

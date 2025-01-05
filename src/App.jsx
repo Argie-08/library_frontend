@@ -7,6 +7,9 @@ import Navbar from "./components/Navbar";
 import Home from "./components/Home";
 import Note from "./components/Note";
 import ReactForm from "./components/ReactForm";
+import Codeig from "./components/Codeig";
+import Laravel from "./components/Laravel";
+import Other from "./components/Other";
 import { AppContext } from "./AppContext";
 import "./App.css";
 import "primereact/resources/themes/lara-light-cyan/theme.css";
@@ -21,8 +24,10 @@ const App = () => {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [storeFile, setStoreFile] = useState("");
   const [reactFiles, setReactFiles] = useState([]);
+  const [codeFiles, setCodeFiles] = useState([]);
+  const [laravelFiles, setLaravelFiles] = useState([]);
+  const [otherFiles, setOtherFiles] = useState([]);
 
   const api = useApi();
 
@@ -30,9 +35,12 @@ const App = () => {
     fetchData();
   }, [query]);
 
-  useEffect(() => {
-    fetchReact();
-  }, []);
+  // useEffect(() => {
+  //   fetchReact();
+  //   fetchCodeigniter();
+  //   fetchLaravel();
+  //   fetchOther();
+  // }, []);
 
   const fetchData = async () => {
     setLoading(true);
@@ -59,10 +67,38 @@ const App = () => {
       setLoading(false);
     }
   };
-
-  const handleContent = (content) => {
-    setVisible(true);
-    setStoreFile(content);
+  const fetchCodeigniter = async () => {
+    setLoading(true);
+    try {
+      const response = await api.get("/getFilesCodeigniter");
+      setCodeFiles(response.data);
+    } catch (error) {
+      console.error("Error fetching search results", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+  const fetchLaravel = async () => {
+    setLoading(true);
+    try {
+      const response = await api.get("/getFilesLaravel");
+      setLaravelFiles(response.data);
+    } catch (error) {
+      console.error("Error fetching search results", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+  const fetchOther = async () => {
+    setLoading(true);
+    try {
+      const response = await api.get("/getFilesOther");
+      setOtherFiles(response.data);
+    } catch (error) {
+      console.error("Error fetching search results", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -76,6 +112,20 @@ const App = () => {
           fetchData,
           fetchReact,
           reactFiles,
+          codeFiles,
+          laravelFiles,
+          otherFiles,
+          fetchCodeigniter,
+          fetchLaravel,
+          fetchOther,
+          setVisible,
+          visible,
+          subject,
+          setSubject,
+          title,
+          setTitle,
+          content,
+          setContent,
         }}
       >
         <Navbar />
@@ -83,75 +133,12 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/note" element={<Note />} />
           <Route path="/react" element={<ReactForm />} />
+          <Route path="/codeigniter" element={<Codeig />} />
+          <Route path="/laravel" element={<Laravel />} />
+          <Route path="/other" element={<Other />} />
         </Routes>
       </AppContext.Provider>
     </div>
-
-    // <div className="Container">
-    //   <form onSubmit={handleSave}>
-    //     <div>
-    //       <label htmlFor="subject">Subject:</label>
-    //       <input
-    //         value={subject}
-    //         type="text"
-    //         id="subject"
-    //         placeholder="Subject"
-    //         onChange={(e) => setSubject(e.target.value)}
-    //       />
-    //     </div>
-    //     <div>
-    //       <label htmlFor="title">Title:</label>
-    //       <input
-    //         value={title}
-    //         type="text"
-    //         id="title"
-    //         placeholder="Title"
-    //         onChange={(e) => setTitle(e.target.value)}
-    //       />
-    //     </div>
-    //     <div>
-    //       <label htmlFor="content">Content:</label>
-    //       <textarea
-    //         value={content}
-    //         type="text"
-    //         id="content"
-    //         placeholder="Content"
-    //         onChange={(e) => setContent(e.target.value)}
-    //       />
-    //     </div>
-    //     <button>Save</button>
-    //   </form>
-    //   <div
-    //     className="typeContainer"
-    //     style={{ width: "60%", marginTop: "2rem" }}
-    //   >
-    //     <input
-    //       type="text"
-    //       placeholder="Search here ..."
-    //       style={{ width: "100%", marginBottom: "1rem" }}
-    //       value={query}
-    //       onChange={(e) => setQuery(e.target.value)}
-    //     />
-    //     {loading && <p>Loading...</p>}
-    //     {results.map((result, index) => (
-    //       <p onClick={() => handleContent(result.content)} key={index}>
-    //         {result.subject} - {result.title}
-    //       </p>
-    //     ))}
-    //   </div>
-    //   <Dialog
-    //     header="Header"
-    //     visible={visible}
-    //     style={{ width: "50vw" }}
-    //     onHide={() => {
-    //       if (!visible) return;
-    //       setVisible(false);
-    //     }}
-    //   >
-    //     <p className="m-0">{storeFile}</p>
-    //   </Dialog>
-    //   <Toast ref={toast} />
-    // </div>
   );
 };
 
